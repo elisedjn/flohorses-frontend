@@ -1,0 +1,46 @@
+#Horses{
+  padding-top: 55px;
+}
+
+#Horses .cards-container{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+#Horses .horse-card{
+  width: 160px;
+}
+
+#Horses .horse-infos p{
+  margin: 0;
+  font-size: 0.7rem;
+}
+
+#Horses .horse-pictures {
+  max-height: 150px;
+  min-height: 150px;
+  background-image: url(/images/default-horse.png);
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+#Horses .horse-one-picture {
+  max-height: 150px;
+  min-height: 150px;
+  background-position: center;
+  background-size: cover;
+}
+
+#Horses .phase-logo{
+  width: 30px;
+}
+
+#Horses .phases{
+  /* background-color: #ffa647; */
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+}
+

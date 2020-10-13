@@ -75,7 +75,9 @@ function App(props) {
       <header className="App-header">
         {loggedInUser && <NavBar onLogOut = {handleLogOut} />}
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" render={(routeProps) => {
+            return <Home loggedInUser = {loggedInUser} {...routeProps} />
+          }} />
           <Route
             path="/login"
             render={(routeProps) => {
@@ -88,7 +90,7 @@ function App(props) {
               return <Signup onSignUp={handleSignUp} {...routeProps} />;
             }}
           />
-          <Route path="/horses" render={(routeProps) => {
+          <Route exact path="/horses" render={(routeProps) => {
             return <Horses loggedInUser = {loggedInUser} {...routeProps} />;
           }} />
         </Switch>

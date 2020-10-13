@@ -15,6 +15,9 @@ bordeaux : #5a002c */
 }
 
 .button{
+  display: block;
+  text-align: center;
+  margin-bottom: 30px;
   padding: 10px 15px;
   border-radius: 5px;
   color: white;

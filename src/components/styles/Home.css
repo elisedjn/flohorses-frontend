@@ -29,10 +29,6 @@
   flex-direction: column;
 }
 
-#Home .auth-buttons *{
-  margin-bottom: 30px;
-}
-
 #Home .intro-text{
   color: white;
   width: 80%;

@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Megrim&display=swap');
+
+#Home {
+  background-image: url('/images/bg.jpg');
+  background-size: cover;
+  text-align: center;
+  min-height: 100vh;
+  padding: 70px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#Home img{
+  width: 150px;
+}
+
+#Home .brand-name{
+  color: white;
+  font-family: 'Megrim', cursive;
+  font-size: 2rem;
+  font-weight: bolder;
+}
+
+#Home .auth-buttons{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+#Home .auth-buttons *{
+  margin-bottom: 30px;
+}
+
+#Home .intro-text{
+  color: white;
+  width: 80%;
+  font-weight: bolder;
+}

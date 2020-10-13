@@ -1,0 +1,39 @@
+#NavBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  background-color: #5a002c;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+#NavBar a{
+  color: white;
+  text-decoration: none;
+}
+
+#NavBar img{
+  width: 20px;
+}
+
+#NavBar button{
+  background-color: transparent;
+  border: none;
+}
+
+#NavBar .horse-img{
+  width: 30px;
+}
+
+#NavBar .logo-img{
+  width: 45px;
+  margin-left: 10px;
+}
+
+#NavBar .add-horse{
+  font-size: 2rem;
+  color: white;
+}

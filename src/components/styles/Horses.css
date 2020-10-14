@@ -1,5 +1,19 @@
 #Horses{
-  padding-top: 55px;
+  padding-top: 40px;
+}
+
+#Horses .bienvenue{
+  font-family: 'Megrim', cursive;
+  padding-top: 15px;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: bolder;
+}
+
+#Horses .button{
+  width: 50%;
+  margin: auto;
+  margin-bottom: 20px;
 }
 
 #Horses .cards-container{
@@ -38,9 +52,14 @@
 }
 
 #Horses .phases{
-  /* background-color: #ffa647; */
   display: flex;
   justify-content: space-around;
   padding: 0;
+}
+
+#Horses .horse-name{
+  font-family: 'Megrim', cursive;
+  font-weight: bold;
+  text-align: center;
 }
 

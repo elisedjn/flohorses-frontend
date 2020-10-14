@@ -11,6 +11,8 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import NavBar from './components/NavBar';
 import Horses from './components/Horses';
+import Footer from "./components/Footer";
+import OneHorse from "./components/OneHorse";
 
 function App(props) {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -72,7 +74,6 @@ function App(props) {
 
   return (
     <div className="App">
-      <header className="App-header">
         {loggedInUser && <NavBar onLogOut = {handleLogOut} />}
         <Switch>
           <Route exact path="/" render={(routeProps) => {
@@ -93,8 +94,11 @@ function App(props) {
           <Route exact path="/horses" render={(routeProps) => {
             return <Horses loggedInUser = {loggedInUser} {...routeProps} />;
           }} />
+          <Route path="/horses/onehorse/:horseID" render={(routeProps) => {
+            return <OneHorse loggedInUser = {loggedInUser} {...routeProps} />;
+          }} />
         </Switch>
-      </header>
+        <Footer />
     </div>
   );
 }

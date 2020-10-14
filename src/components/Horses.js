@@ -23,7 +23,7 @@ export default function Horses(props) {
 
   return (
     <div id="Horses">
-      <div>
+      <div className="bienvenue">
         Bienvenue {props.loggedInUser ? <>{props.loggedInUser.username}</> : ""}{" "}
       </div>
       <div>Search box</div>
@@ -34,46 +34,55 @@ export default function Horses(props) {
         {horses ? (
           horses.map((horse, i) => {
             return (
-              <Card key={"horse" + i} className="horse-card">
-                <Carousel controls={false} indicators={false} className="horse-pictures">
-                  {horse.pictures.map((picture, i) => {
-                    return (
-                      <Carousel.Item className="horse-one-picture" key={horse.name + "picture" + i} style={{backgroundImage : `url(${picture})`}} >
-                      </Carousel.Item>
-                    );
-                  })}
-                </Carousel>
-                <Card.Body>
-                  <Card.Title>{horse.name}</Card.Title>
-                  <div className="horse-infos">
-                    <p>{horse.sex}</p>
-                    <p>
-                      Né{horse.sex === "Femelle" && "e"} le :{" "}
-                      {toFormatedDate(horse.birthdate)}
-                    </p>
-                  </div>
-                </Card.Body>
-                <Card.Footer className="phases">
-                  {horse.phases &&
-                    horse.phases.map((phase, index) => {
+                <Card key={"horse" + i} className="horse-card">
+                <Link to={`/horses/onehorse/${horse._id}`}>
+                  <Carousel
+                    controls={false}
+                    indicators={false}
+                    className="horse-pictures"
+                  >
+                    {horse.pictures.map((picture, i) => {
                       return (
-                        <div key={horse.name + "phase" + index}>
-                          <img
-                            className="phase-logo"
-                            src={
-                              phase.name === "Cheval de selle"
-                                ? "/images/selle.png"
-                                : phase.name === "Débourrage"
-                                ? "images/breaking.png"
-                                : "images/pretraining.png"
-                            }
-                            alt={phase.name}
-                          />
-                        </div>
+                        <Carousel.Item
+                          className="horse-one-picture"
+                          key={horse.name + "picture" + i}
+                          style={{ backgroundImage: `url(${picture})` }}
+                        ></Carousel.Item>
                       );
                     })}
-                </Card.Footer>
-              </Card>
+                  </Carousel>
+                  <Card.Body>
+                    <Card.Title className="horse-name">{horse.name}</Card.Title>
+                    <div className="horse-infos">
+                      <p>{horse.sex}</p>
+                      <p>
+                        Né{horse.sex === "Femelle" && "e"} le :{" "}
+                        {toFormatedDate(horse.birthdate)}
+                      </p>
+                    </div>
+                  </Card.Body>
+                  <Card.Footer className="phases">
+                    {horse.phases &&
+                      horse.phases.map((phase, index) => {
+                        return (
+                          <div key={horse.name + "phase" + index}>
+                            <img
+                              className="phase-logo"
+                              src={
+                                phase.name === "Cheval de selle"
+                                  ? "/images/selle.png"
+                                  : phase.name === "Débourrage"
+                                  ? "images/breaking.png"
+                                  : "images/pretraining.png"
+                              }
+                              alt={phase.name}
+                            />
+                          </div>
+                        );
+                      })}
+                  </Card.Footer>
+                  </Link>
+                </Card>
             );
           })
         ) : (

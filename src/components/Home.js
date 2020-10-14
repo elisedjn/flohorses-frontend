@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./styles/Home.css";
 
-import Footer from "./Footer";
-
 export default function Home(props) {
   return (
     <div id="Home">
@@ -30,7 +28,6 @@ export default function Home(props) {
         </Link>
       </div>}
       <div className="intro-text">Gardez une trace de tous les chevaux avec lesquels vous avez travaillé, ajoutez des notes pour chaque étape de leur développement et retrouvez facilement chaque cheval.</div>
-      <Footer />
     </div>
   );
 }

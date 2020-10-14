@@ -1,0 +1,17 @@
+#MyCarousel {
+  width: 180px;
+  max-height: 180px;
+  height: 180px;
+  min-height: 180px ;
+  background-image: url(/images/default-horse.png);
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+#MyCarousel .horse-one-picture {
+  max-height: 180px;
+  min-height: 180px;
+  background-position: center;
+  background-size: cover;
+}

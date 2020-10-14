@@ -94,7 +94,7 @@ function App(props) {
           <Route exact path="/horses" render={(routeProps) => {
             return <Horses loggedInUser = {loggedInUser} {...routeProps} />;
           }} />
-          <Route path="/horses/onehorse/:horseID" render={(routeProps) => {
+          <Route exact path="/horses/:horseID" render={(routeProps) => {
             return <OneHorse loggedInUser = {loggedInUser} {...routeProps} />;
           }} />
         </Switch>

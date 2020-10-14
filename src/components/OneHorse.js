@@ -1,52 +1,38 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 import { API_URL } from "../config";
 import toFormatedDate from "../helpers";
 
-import { Carousel } from "react-bootstrap";
+import { Tab, Tabs } from "react-bootstrap";
+import "./styles/OneHorse.css";
+
+import MyCarousel from "./MyCarousel";
+import Phase from "./Phase";
+import Infos from "./Infos";
 
 export default function OneHorse(props) {
   const [horse, setHorse] = useState(null);
 
   useEffect(() => {
     axios
-      .get(`${API_URL}/horses/onehorse/${props.match.params.horseID}`, { withCredentials: true })
+      .get(`${API_URL}/horses/onehorse/${props.match.params.horseID}`, {
+        withCredentials: true,
+      })
       .then((response) => setHorse(response.data))
       .catch((err) => console.log("Get one horse", err));
   }, [props.match.params.horseID]);
 
   if (horse) {
-    const {
-      name,
-      birthdate,
-      breeder,
-      owner,
-      father,
-      mother,
-      sex,
-      pictures,
-      phases,
-    } = horse;
+    const { name, birthdate, sex, pictures, phases } = horse;
 
     return (
       <div id="OneHorse">
         <div className="top-part">
-          <Carousel
-            controls={false}
-            indicators={false}
-            className="horse-pictures"
-          >
-            {horse.pictures.map((picture, i) => {
-              return (
-                <Carousel.Item
-                  className="horse-one-picture"
-                  key={horse.name + "picture" + i}
-                  style={{ backgroundImage: `url(${picture})` }}
-                ></Carousel.Item>
-              );
-            })}
-          </Carousel>
+          <div>
+            <MyCarousel pictures={pictures} />
+            <Link to={`/horses/${horse._id}/pictures`}>Voir la galerie</Link>
+          </div>
           <div>
             <h2>{name}</h2>
             <p>{sex}</p>
@@ -56,8 +42,24 @@ export default function OneHorse(props) {
             <p>Phase actuelle</p>
           </div>
         </div>
-        <div className="all-phases">
-            info
+        <div className="dividers">
+          <Tabs defaultActiveKey="infos-tab" id="uncontrolled-tab-example">
+            <Tab eventKey="infos-tab" title="Infos">
+              <Infos infos={horse} />
+            </Tab>
+            {phases.map((phase, index) => (
+              <Tab
+                eventKey={phase.phaseName + "-tab"}
+                title={phase.phaseName}
+                key={"divider" + index}
+              >
+                <Phase infos={phase} id={horse._id}className="one-phase" />
+              </Tab>
+            ))}
+            <Tab eventKey="add-phase" title="+">
+              Ajouter une phase
+            </Tab>
+          </Tabs>
         </div>
       </div>
     );

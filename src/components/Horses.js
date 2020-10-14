@@ -35,7 +35,7 @@ export default function Horses(props) {
           horses.map((horse, i) => {
             return (
                 <Card key={"horse" + i} className="horse-card">
-                <Link to={`/horses/onehorse/${horse._id}`}>
+                <Link to={`/horses/${horse._id}`}>
                   <Carousel
                     controls={false}
                     indicators={false}
@@ -69,13 +69,13 @@ export default function Horses(props) {
                             <img
                               className="phase-logo"
                               src={
-                                phase.name === "Cheval de selle"
+                                phase.phaseName === "Cheval de selle"
                                   ? "/images/selle.png"
-                                  : phase.name === "Débourrage"
+                                  : phase.phaseName === "Débourrage"
                                   ? "images/breaking.png"
                                   : "images/pretraining.png"
                               }
-                              alt={phase.name}
+                              alt={phase.phaseName}
                             />
                           </div>
                         );

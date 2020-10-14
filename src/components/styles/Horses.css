@@ -2,6 +2,10 @@
   padding-top: 40px;
 }
 
+#Horses a{
+  color: black;
+}
+
 #Horses .bienvenue{
   font-family: 'Megrim', cursive;
   padding-top: 15px;
@@ -14,6 +18,7 @@
   width: 50%;
   margin: auto;
   margin-bottom: 20px;
+  color: white;
 }
 
 #Horses .cards-container{

@@ -1,0 +1,8 @@
+#OneHorse{
+  padding-top: 70px;
+}
+
+#OneHorse .top-part{
+  display: flex;
+  justify-content: center;
+}

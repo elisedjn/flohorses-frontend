@@ -7,6 +7,9 @@ bordeaux : #5a002c */
 .App{
   font-family: 'Raleway', sans-serif;
   min-height: 100vh;
+  background-image: url('/images/bg.jpg');
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .App a:hover{
@@ -24,6 +27,14 @@ bordeaux : #5a002c */
   font-family: 'Megrim', cursive;
   font-weight: bolder;
   width: 100%;
+}
+
+.small-button{
+  text-align: center;
+  padding: 5px 10px;
+  color: white;
+  border-radius: 5px;
+  border: none;
 }
 
 .btn-orange{

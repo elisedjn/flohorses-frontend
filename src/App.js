@@ -13,6 +13,8 @@ import NavBar from './components/NavBar';
 import Horses from './components/Horses';
 import Footer from "./components/Footer";
 import OneHorse from "./components/OneHorse";
+import Galery from "./components/Galery";
+import CreateHorse from './components/CreateHorse';
 
 function App(props) {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -25,7 +27,7 @@ function App(props) {
             .then((user) => setLoggedInUser(user.data))
         })
     }
-  })
+  }, [loggedInUser])
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -94,8 +96,14 @@ function App(props) {
           <Route exact path="/horses" render={(routeProps) => {
             return <Horses loggedInUser = {loggedInUser} {...routeProps} />;
           }} />
+          <Route exact path="/horses/create" render={(routeProps) => {
+            return <CreateHorse loggedInUser = {loggedInUser} {...routeProps} />;
+          }} />
           <Route exact path="/horses/:horseID" render={(routeProps) => {
             return <OneHorse loggedInUser = {loggedInUser} {...routeProps} />;
+          }} />
+          <Route exact path="/horses/:horseID/pictures" render={(routeProps) => {
+            return <Galery loggedInUser = {loggedInUser} {...routeProps} />
           }} />
         </Switch>
         <Footer />

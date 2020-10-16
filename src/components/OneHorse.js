@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { API_URL } from "../config";
-import toFormatedDate from "../helpers";
+import { toFormatedDate } from "../helpers";
 
 import { Tab, Tabs } from "react-bootstrap";
 import "./styles/OneHorse.css";
@@ -29,11 +29,13 @@ export default function OneHorse(props) {
     return (
       <div id="OneHorse">
         <div className="top-part">
-          <div>
-            <MyCarousel pictures={pictures} />
-            <Link to={`/horses/${horse._id}/pictures`}>Voir la galerie</Link>
+          <div className="pictures">
+            <Link to={`/horses/${horse._id}/pictures`}>
+              <MyCarousel pictures={pictures} />
+              Voir la galerie
+            </Link>
           </div>
-          <div>
+          <div className="identity">
             <h2>{name}</h2>
             <p>{sex}</p>
             <p>
@@ -43,7 +45,7 @@ export default function OneHorse(props) {
           </div>
         </div>
         <div className="dividers">
-          <Tabs defaultActiveKey="infos-tab" id="uncontrolled-tab-example">
+          <Tabs defaultActiveKey="infos-tab">
             <Tab eventKey="infos-tab" title="Infos">
               <Infos infos={horse} />
             </Tab>
@@ -53,7 +55,7 @@ export default function OneHorse(props) {
                 title={phase.phaseName}
                 key={"divider" + index}
               >
-                <Phase infos={phase} id={horse._id}className="one-phase" />
+                <Phase infos={phase} id={horse._id} className="one-phase" />
               </Tab>
             ))}
             <Tab eventKey="add-phase" title="+">

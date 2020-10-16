@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import { API_URL } from "../config";
+import {toFormatedDate, toCalendarDate} from "../helpers";
 
 export default function Phase(props) {
   const [showEdit, setShowEdit] = useState({ display: "none" });
@@ -29,7 +30,6 @@ export default function Phase(props) {
     axios
       .patch(`${API_URL}/horses/onehorse/${props.id}/${props.infos.shortName}/edit`, updatedInfos, { withCredentials: true })
       .then((res) => {
-        console.log(res)
         setPhaseInfos(updatedInfos);
         setShowEdit({ display: "none" });
         setShowInfos({ display: "block" });
@@ -43,18 +43,18 @@ export default function Phase(props) {
     return (
       <div className="Phase">
         <div className="on-read" style={showInfos}>
-          <button onClick={toggleShow}>Éditer</button>
-          <p>Arrivée : {phaseInfos.arrivalDate}</p>
-          <p>Départ : {phaseInfos.departureDate}</p>
-          <p>Notes : {phaseInfos.phaseNotes}</p>
+          <p>Arrivée : {toFormatedDate(phaseInfos.arrivalDate)}</p>
+          <p>Départ : {toFormatedDate(phaseInfos.departureDate)}</p>
+          <p>Notes : <br/> {phaseInfos.phaseNotes}</p>
         </div>
+        <button onClick={toggleShow}>Éditer</button>
         <div className="on-edit" style={showEdit}>
           <form onSubmit={handleEdit}>
             <div>
               <label>Arrivée : </label>
               <input
                 type="date"
-                defaultValue={phaseInfos.arrivalDate}
+                defaultValue={toCalendarDate(phaseInfos.arrivalDate)}
                 name="arrivalDate"
               />
             </div>
@@ -62,7 +62,7 @@ export default function Phase(props) {
               <label>Départ : </label>
               <input
                 type="date"
-                defaultValue={phaseInfos.departureDate}
+                defaultValue={toCalendarDate(phaseInfos.departureDate)}
                 name="departureDate"
               />
             </div>

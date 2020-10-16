@@ -48,12 +48,12 @@ export default function Infos(props) {
     return (
       <div id="Infos">
         <div className="on-read" style={showInfos}>
-          <button onClick={toggleShow}>Éditer</button>
           <p>Père : {horseInfos.father}</p>
           <p>Mère : {horseInfos.mother}</p>
           <p>Éleveur : {horseInfos.breeder}</p>
           <p>Propriétaire : {horseInfos.owner}</p>
-          <p>Notes : {horseInfos.generalNotes}</p>
+          <p>Notes : <br/> {horseInfos.generalNotes}</p>
+          <button className="small-button btn-orange" onClick={toggleShow}>Éditer</button>
         </div>
         <div className="on-edit" style={showEdit}>
           <form onSubmit={handleEdit}>

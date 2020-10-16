@@ -27,6 +27,10 @@
   flex-wrap: wrap;
 }
 
+#Horses .card{
+  border: none;
+}
+
 #Horses .horse-card{
   width: 160px;
 }

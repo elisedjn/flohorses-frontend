@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../config";
-import toFormatedDate from "../helpers";
+import {toFormatedDate} from "../helpers";
 
 import { Card, CardDeck, Carousel } from "react-bootstrap";
 import "./styles/Horses.css";

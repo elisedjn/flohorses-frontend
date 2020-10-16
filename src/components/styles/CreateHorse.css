@@ -1,0 +1,8 @@
+#CreateHorse{
+  padding-top: 70px;
+}
+
+#CreateHorse .top-part{
+  display: flex;
+  justify-content: center;
+}

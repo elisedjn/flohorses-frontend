@@ -4,6 +4,8 @@ import axios from "axios";
 import { API_URL } from "../config";
 import {toFormatedDate, toCalendarDate} from "../helpers";
 
+import './styles/Phase.css';
+
 export default function Phase(props) {
   const [showEdit, setShowEdit] = useState({ display: "none" });
   const [showInfos, setShowInfos] = useState({ display: "block" });
@@ -34,7 +36,7 @@ export default function Phase(props) {
         setShowEdit({ display: "none" });
         setShowInfos({ display: "block" });
       })
-      .catch((err) => console.log("edit infos on a horse", err));
+      .catch((err) => console.log("edit phase on a horse", err));
   };
 
   if (!phaseInfos) {
@@ -43,37 +45,41 @@ export default function Phase(props) {
     return (
       <div className="Phase">
         <div className="on-read" style={showInfos}>
-          <p>Arrivée : {toFormatedDate(phaseInfos.arrivalDate)}</p>
-          <p>Départ : {toFormatedDate(phaseInfos.departureDate)}</p>
-          <p>Notes : <br/> {phaseInfos.phaseNotes}</p>
+          <p className="field">Arrivée : <strong>{toFormatedDate(phaseInfos.arrivalDate)}</strong></p>
+          <p className="field">Départ : <strong>{toFormatedDate(phaseInfos.departureDate)}</strong></p>
+          <p className="field">Notes : </p> <p className="notes"> {phaseInfos.phaseNotes}</p>
+          <button className="small-button btn-orange" onClick={toggleShow}>Éditer</button>
         </div>
-        <button onClick={toggleShow}>Éditer</button>
         <div className="on-edit" style={showEdit}>
           <form onSubmit={handleEdit}>
-            <div>
+            <div className="field">
               <label>Arrivée : </label>
               <input
+                className="big-input"
                 type="date"
                 defaultValue={toCalendarDate(phaseInfos.arrivalDate)}
                 name="arrivalDate"
               />
             </div>
-            <div>
+            <div className="field">
               <label>Départ : </label>
               <input
+                className="big-input"
                 type="date"
                 defaultValue={toCalendarDate(phaseInfos.departureDate)}
                 name="departureDate"
               />
             </div>
-            <div>
+            <div className="field">
               <label>Notes : </label>
+              <br />
               <textarea
+                className="notes textarea"
                 defaultValue={phaseInfos.phaseNotes}
                 name="phaseNotes"
               />
             </div>
-            <button type="submit">Valider</button>
+            <button className="small-button btn-orange" type="submit">Valider</button>
           </form>
         </div>
       </div>

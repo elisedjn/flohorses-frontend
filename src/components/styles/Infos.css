@@ -1,0 +1,45 @@
+#Infos strong{
+  font-weight: bold;
+  color: black
+}
+
+#Infos .field{
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+#Infos .field .small-input{
+  padding: 0px;
+  width: 100px;
+  padding-left: 5px;
+  margin: 0 5px;;
+  border: 1px solid #ce7413;
+  border-radius: 2px;
+}
+
+#Infos .field .big-input{
+  padding: 0px;
+  width: 150px;
+  margin: 0 5px;
+  padding-left: 5px;
+  border: 1px solid #ce7413;
+  border-radius: 2px;
+}
+
+#Infos .notes{
+  height: 140px;
+  border: 1px solid #cdcdcd;
+  padding: 5px;
+  overflow: scroll;
+  color: black;
+}
+
+#Infos .textarea{
+  width: 98%;
+  border: 1px solid #ce7413;
+  border-radius: 2px;
+}
+
+#Infos label{
+  margin: 0px;
+}

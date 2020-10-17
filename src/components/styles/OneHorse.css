@@ -1,5 +1,5 @@
 #OneHorse{
-  padding-top: 70px;
+  padding-top: 60px;
   max-width: 100vw;
   min-height: 100vh;
   background-color: rgba(227, 220, 213, 0.8);
@@ -37,6 +37,7 @@
 
 .dividers{
   padding: 0px 10px;
+  color: gray;
 }
 
 .dividers .nav-link{

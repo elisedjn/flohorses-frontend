@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../config";
 
+import './styles/Infos.css';
+
 export default function Infos(props) {
   const [showEdit, setShowEdit] = useState({ display: "none" });
   const [showInfos, setShowInfos] = useState({ display: "block" });
@@ -48,55 +50,59 @@ export default function Infos(props) {
     return (
       <div id="Infos">
         <div className="on-read" style={showInfos}>
-          <p>Père : {horseInfos.father}</p>
-          <p>Mère : {horseInfos.mother}</p>
-          <p>Éleveur : {horseInfos.breeder}</p>
-          <p>Propriétaire : {horseInfos.owner}</p>
-          <p>Notes : <br/> {horseInfos.generalNotes}</p>
+          <p className="field">Par <strong>{horseInfos.father}</strong> et <strong>{horseInfos.mother}</strong></p>
+          <p className="field">Éleveur : <strong>{horseInfos.breeder}</strong></p>
+          <p className="field">Propriétaire : <strong>{horseInfos.owner}</strong></p>
+          <p className="field">Notes :</p>
+          <p className="notes">{horseInfos.generalNotes}</p>
           <button className="small-button btn-orange" onClick={toggleShow}>Éditer</button>
         </div>
         <div className="on-edit" style={showEdit}>
           <form onSubmit={handleEdit}>
-            <div>
-              <label>Père : </label>
+            <div className="field">
+              <label>Par</label>
               <input
+                className="small-input"
                 type="string"
                 defaultValue={horseInfos.father}
                 name="father"
               />
-            </div>
-            <div>
-              <label>Mère : </label>
+              <label>et</label>
               <input
+                className="small-input"
                 type="string"
                 defaultValue={horseInfos.mother}
                 name="mother"
               />
             </div>
-            <div>
+            <div className="field">
               <label>Éleveur : </label>
               <input
+                className="big-input"
                 type="string"
                 defaultValue={horseInfos.breeder}
                 name="breeder"
               />
             </div>
-            <div>
+            <div className="field">
               <label>Propriétaire : </label>
               <input
+                className="big-input"
                 type="string"
                 defaultValue={horseInfos.owner}
                 name="owner"
               />
             </div>
-            <div>
+            <div className="field">
               <label>Notes : </label>
+              <br />
               <textarea
+                className="notes textarea"
                 defaultValue={horseInfos.generalNotes}
                 name="generalNotes"
               />
             </div>
-            <button type="submit">Valider</button>
+            <button className="small-button btn-orange" type="submit">Valider</button>
           </form>
         </div>
       </div>

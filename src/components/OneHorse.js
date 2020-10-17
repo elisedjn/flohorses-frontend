@@ -10,6 +10,7 @@ import "./styles/OneHorse.css";
 import MyCarousel from "./MyCarousel";
 import Phase from "./Phase";
 import Infos from "./Infos";
+import NewPhase from "./NewPhase";
 
 export default function OneHorse(props) {
   const [horse, setHorse] = useState(null);
@@ -59,7 +60,7 @@ export default function OneHorse(props) {
               </Tab>
             ))}
             <Tab eventKey="add-phase" title="+">
-              Ajouter une phase
+              <NewPhase horseID={horse._id} history={props.history} />
             </Tab>
           </Tabs>
         </div>

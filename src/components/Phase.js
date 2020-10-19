@@ -12,8 +12,8 @@ export default function Phase(props) {
   const [phaseInfos, setPhaseInfos] = useState(null);
 
   useEffect(() => {
-    const { arrivalDate, departureDate, phaseNotes } = props.infos;
-    setPhaseInfos({ arrivalDate, departureDate, phaseNotes });
+    const { arrivalDate, departureDate, phaseNotes, phaseName } = props.infos;
+    setPhaseInfos({ arrivalDate, departureDate, phaseNotes, phaseName });
   }, [props.infos]);
 
   const toggleShow = () => {
@@ -27,10 +27,13 @@ export default function Phase(props) {
     const updatedInfos = {
       arrivalDate: arrivalDate.value,
       departureDate: departureDate.value,
-      phaseNotes: phaseNotes.value
+      phaseNotes: phaseNotes.value,
+      phaseName: phaseInfos.phaseName
     }
+    updatedInfos.arrivalDate !== '' && updatedInfos.departureDate === '' ? updatedInfos.active = true : updatedInfos.active = false
+
     axios
-      .patch(`${API_URL}/horses/onehorse/${props.id}/${props.infos.shortName}/edit`, updatedInfos, { withCredentials: true })
+      .patch(`${API_URL}/horses/onehorse/${props.id}/phase/edit`, updatedInfos, { withCredentials: true })
       .then((res) => {
         setPhaseInfos(updatedInfos);
         setShowEdit({ display: "none" });
@@ -47,7 +50,7 @@ export default function Phase(props) {
         <div className="on-read" style={showInfos}>
           <p className="field">Arrivée : <strong>{toFormatedDate(phaseInfos.arrivalDate)}</strong></p>
           <p className="field">Départ : <strong>{toFormatedDate(phaseInfos.departureDate)}</strong></p>
-          <p className="field">Notes : </p> <p className="notes"> {phaseInfos.phaseNotes}</p>
+          <p className="field">Notes : </p> <p onDoubleClick={toggleShow} className="notes"> {phaseInfos.phaseNotes}</p>
           <button className="small-button btn-orange" onClick={toggleShow}>Éditer</button>
         </div>
         <div className="on-edit" style={showEdit}>

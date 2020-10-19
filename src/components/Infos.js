@@ -54,7 +54,7 @@ export default function Infos(props) {
           <p className="field">Éleveur : <strong>{horseInfos.breeder}</strong></p>
           <p className="field">Propriétaire : <strong>{horseInfos.owner}</strong></p>
           <p className="field">Notes :</p>
-          <p className="notes">{horseInfos.generalNotes}</p>
+          <p className="notes" onDoubleClick={toggleShow} >{horseInfos.generalNotes}</p>
           <button className="small-button btn-orange" onClick={toggleShow}>Éditer</button>
         </div>
         <div className="on-edit" style={showEdit}>

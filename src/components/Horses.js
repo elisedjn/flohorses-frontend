@@ -69,11 +69,11 @@ export default function Horses(props) {
                             <img
                               className="phase-logo"
                               src={
-                                phase.phaseName === "Cheval de selle"
+                                phase.phaseName.includes("Cheval de selle")
                                   ? "/images/selle.png"
-                                  : phase.phaseName === "Débourrage"
-                                  ? "images/breaking.png"
-                                  : "images/pretraining.png"
+                                  : phase.phaseName.includes("Débourrage")
+                                  ? "/images/breaking.png"
+                                  : "/images/pretraining.png"
                               }
                               alt={phase.phaseName}
                             />

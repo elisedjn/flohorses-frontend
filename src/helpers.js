@@ -13,4 +13,13 @@ const toCalendarDate = (date) => {
   const year = fullDate.getFullYear();
   return isNaN(day) || isNaN(month) || isNaN(year) ? "-" : `${year}-${month.slice(-2)}-${day.slice(-2)}`
 }
-export {toCalendarDate, toFormatedDate};
+
+const nameIteration = (phases, newPhase, stringPhase) => {
+  let count = 1
+  phases.forEach(phase => {
+    if(phase.phaseName.includes(stringPhase)) count ++  
+  })
+  count > 1 ? newPhase.phaseName = stringPhase + " " + count : newPhase.phaseName = stringPhase
+} 
+
+export {toCalendarDate, toFormatedDate, nameIteration};

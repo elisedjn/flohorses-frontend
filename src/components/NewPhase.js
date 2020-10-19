@@ -1,29 +1,11 @@
 import React from "react";
-import axios from "axios";
-
-import { API_URL } from "../config";
 
 import './styles/Phase.css'
 
 export default function NewPhase(props) {
-  const handleCreatePhase = (e) => {
-    e.preventDefault();
-    const { shortName, arrivalDate, departureDate, phaseNotes } = e.currentTarget;
-    const newPhase = {
-      shortName : shortName.value,
-      arrivalDate : arrivalDate.value,
-      departureDate : departureDate.value,
-      phaseNotes : phaseNotes.value,
-    }
-    newPhase.shortName === "selle" ? newPhase.phaseName = "Cheval de selle" : newPhase.shortName === "breaking" ? newPhase.phaseName = "Débourrage" : newPhase.phaseName = "Pré entrainement"
-
-    axios.patch(`${API_URL}/horses/onehorse/${props.horseID}/create`, newPhase, { withCredentials: true })
-      .then(() => props.history.push(`/horses/${props.horseID}`))
-      .catch((err) => console.log("create phase on a horse", err));
-  }
 
   return (
-    <form className="Phase" onSubmit={handleCreatePhase}>
+    <form className="Phase" onSubmit={props.onCreate}>
       <div className="field">
         <label htmlFor="shortName">Pour : </label>
         <select className="big-input" id="shortName" name="shortName" >

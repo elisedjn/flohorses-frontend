@@ -24,6 +24,7 @@ export default function CreateHorse(props) {
     axios.post(`${API_URL}/horses/${props.loggedInUser._id}/create`, newHorse, {withCredentials: true})
       .then((res) => {
         console.log(res)
+        // props.history.push(`/horse/${res._id}`)
       })
       .catch((err) => console.log("Creating a horse", err))
   }
@@ -31,55 +32,53 @@ export default function CreateHorse(props) {
   return (
     <form id="CreateHorse" onSubmit={handleCreateHorse}>
       <div className="top-part">
-        <div>
+        <div className="add-image">
           <label htmlFor="picture">Ajouter une image</label>
           <input type="file" id="picture" name="picture" accept="image/*" />
         </div>
-        <div>
+        <div className="identity">
           <h2>
-            <input type="text" placeholder="Nom" name="name" />
+            <input className="input-name" type="text" placeholder="Nom" name="name" />
           </h2>
-          <div>
-            <label htmlFor="sex">Sexe</label>
-            <select id="sex" name="sex" size="3">
+          <div className="field">
+            <label htmlFor="sex">Sexe :</label>
+            <select className="big-input" id="sex" name="sex">
               <option value="Femelle">Femelle</option>
               <option value="Mâle">Mâle</option>
               <option value="Hongre">Hongre</option>
             </select>
           </div>
-          <div>
+          <div className="field">
             <label htmlFor="birthdate">Né(e) le:</label>
-            <input type="date" name="birthdate" id="birthdate" />
+            <input className="big-input" type="date" name="birthdate" id="birthdate" />
           </div>
         </div>
       </div>
       <div className="dividers">
-        <Tabs defaultActiveKey="infos-tab" id="uncontrolled-tab-example">
+        <Tabs defaultActiveKey="infos-tab">
           <Tab eventKey="infos-tab" title="Infos">
-            <div>
-              <label htmlFor="father">Père : </label>
-              <input type="string" name="father" id="father" />
+            <div className="field">
+              <label htmlFor="father">Par </label>
+              <input className="small-input" type="string" name="father" id="father" placeholder="Père" />
+              <label htmlFor="mother">et</label>
+              <input className="small-input" type="string" name="mother" id="mother" placeholder="Mère" />
             </div>
-            <div>
-              <label htmlFor="mother">Mère : </label>
-              <input type="string" name="mother" id="mother" />
-            </div>
-            <div>
+            <div className="field">
               <label htmlFor="breeder">Éleveur : </label>
-              <input type="string" name="breeder" id="breeder" />
+              <input className="big-input" type="string" name="breeder" id="breeder" />
             </div>
-            <div>
+            <div className="field">
               <label htmlFor="owner">Propriétaire : </label>
-              <input type="string" name="owner" id="owner" />
+              <input className="big-input" type="string" name="owner" id="owner" />
             </div>
-            <div>
+            <div className="field">
               <label htmlFor="generalNotes">Notes : </label>
-              <textarea name="generalNotes" id="generalNotes" />
+              <textarea className="notes textarea" name="generalNotes" id="generalNotes" />
             </div>
           </Tab>
         </Tabs>
       </div>
-      <button type="submit">Valider</button>
+      <button className="small-button btn-orange" type="submit">Valider</button>
     </form>
   );
 }

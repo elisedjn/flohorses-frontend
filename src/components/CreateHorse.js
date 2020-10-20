@@ -24,7 +24,7 @@ export default function CreateHorse(props) {
     axios.post(`${API_URL}/horses/${props.loggedInUser._id}/create`, newHorse, {withCredentials: true})
       .then((res) => {
         console.log(res)
-        // props.history.push(`/horse/${res._id}`)
+        props.history.push(`/horse/${res.data._id}`)
       })
       .catch((err) => console.log("Creating a horse", err))
   }
@@ -33,8 +33,8 @@ export default function CreateHorse(props) {
     <form id="CreateHorse" onSubmit={handleCreateHorse}>
       <div className="top-part">
         <div className="add-image">
-          <label htmlFor="picture">Ajouter une image</label>
           <input type="file" id="picture" name="picture" accept="image/*" />
+          <label htmlFor="picture" className="btn-1"> <img src="/images/addimage.png" alt = "+" /> <p>Ajouter une image</p></label>
         </div>
         <div className="identity">
           <h2>

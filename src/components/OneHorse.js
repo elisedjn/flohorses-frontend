@@ -65,6 +65,16 @@ export default function OneHorse(props) {
       .catch((err) => console.log("create phase on a horse", err));
   };
 
+  const updateComponent = (updatedInfos) => {
+    let updatedHorse = JSON.parse(JSON.stringify(horse));
+    for (let i=0 ; i < updatedHorse.phases.length; i++) {
+      if(updatedHorse.phases[i].phaseName === updatedInfos.phaseName){
+        updatedHorse.phases[i] = JSON.parse(JSON.stringify(updatedInfos))
+      }
+    }
+    setHorse(updatedHorse);
+  }
+
   if (horse) {
     const { name, birthdate, sex, pictures, phases } = horse;
     let actualPhase = "";
@@ -118,7 +128,7 @@ export default function OneHorse(props) {
                 title={phase.phaseName}
                 key={"divider" + index}
               >
-                <Phase infos={phase} id={horse._id} className="one-phase" />
+                <Phase onUpdate={updateComponent} infos={phase} id={horse._id} className="one-phase" />
               </Tab>
             ))}
             <Tab eventKey="add-phase" title="+">

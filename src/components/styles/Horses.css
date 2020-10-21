@@ -12,6 +12,15 @@
   text-align: center;
   font-size: 1.4rem;
   font-weight: bolder;
+  color: white;
+}
+
+#Horses .search-box{
+  width: 95%;
+  margin: auto;
+  margin-bottom: 30px;
+  padding: 15px 20px;
+  background-color: rgba(227, 220, 213, 0.8);
 }
 
 #Horses .button{

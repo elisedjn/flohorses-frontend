@@ -38,6 +38,7 @@ export default function Phase(props) {
         setPhaseInfos(updatedInfos);
         setShowEdit({ display: "none" });
         setShowInfos({ display: "block" });
+        props.onUpdate(updatedInfos);
       })
       .catch((err) => console.log("edit phase on a horse", err));
   };

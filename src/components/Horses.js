@@ -6,9 +6,12 @@ import {toFormatedDate} from "../helpers";
 
 import { Card, CardDeck, Carousel } from "react-bootstrap";
 import "./styles/Horses.css";
+import SearchBox from "./SearchBox";
 
 export default function Horses(props) {
   const [horses, setHorses] = useState(null);
+  const [filteredHorses, setFilteredHorses] = useState(null);
+
 
   useEffect(() => {
     if (props.loggedInUser) {
@@ -16,23 +19,38 @@ export default function Horses(props) {
         .get(`${API_URL}/horses/${props.loggedInUser._id}/all`, {
           withCredentials: true,
         })
-        .then((horsesArray) => setHorses(horsesArray.data))
+        .then((horsesArray) => {
+          setHorses(horsesArray.data);
+          setFilteredHorses(horsesArray.data)
+        })
         .catch((err) => console.log("in /horses/userID/all", err));
     }
   }, [props.loggedInUser]);
+
+  const handleSearch = (e) => {
+    let search = e.currentTarget.value.toLowerCase();
+    let cloneHorses = horses.filter(horse => {
+      return (
+        horse.name.toLowerCase().includes(search) || (horse.breeder && horse.breeder.toLowerCase().includes(search)) || (horse.owner && horse.owner.toLowerCase().includes(search))
+      )
+    });
+    setFilteredHorses(cloneHorses);
+  }
 
   return (
     <div id="Horses">
       <div className="bienvenue">
         Bienvenue {props.loggedInUser ? <>{props.loggedInUser.username}</> : ""}{" "}
       </div>
-      <div>Search box</div>
+      <div className="search-box">
+        <SearchBox onSearch={handleSearch} />
+      </div>
       <Link className="button btn-orange" to="/horses/create">
         Ajouter un cheval
       </Link>
       <CardDeck className="cards-container">
-        {horses ? (
-          horses.map((horse, i) => {
+        {filteredHorses ? (
+          filteredHorses.map((horse, i) => {
             return (
                 <Card key={"horse" + i} className="horse-card">
                 <Link to={`/horses/${horse._id}`}>

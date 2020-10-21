@@ -1,15 +1,20 @@
-import React from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import {Link} from 'react-router-dom';
+import React from "react";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
+
+import "./styles/Auth.css";
 
 export default function Signup(props) {
   return (
-    <div id="signup">
+    <div className="auth">
       <div>
-        <Link to='/' ><img src="" alt="Logo" /></Link>
+        <Link to="/">
+          <img src="/images/logo.png" alt="Logo" />
+          <p className="brand-name">Flo Horses</p>
+        </Link>
       </div>
-      <Form className="" onSubmit={props.onSignUp}>
+      <Form className="auth-form" onSubmit={props.onSignUp}>
         <Form.Group>
           <Form.Label>Nom d'utilisateur</Form.Label>
           <Form.Control type="string" placeholder="Flo" name="username" />
@@ -26,17 +31,19 @@ export default function Signup(props) {
         </Form.Group>
 
         <div className="loginBtn">
-          <Button className="loginBtnClick" variant="primary" type="submit">
-           Créer un compte
+          <Button
+            className="loginBtnClick small-button btn-bordeaux"
+            variant="primary"
+            type="submit"
+          >
+            Créer un compte
           </Button>
         </div>
 
         <Form.Text className="small-text">
           Déjà inscrit? <Link to="/login">Se connecter</Link>
         </Form.Text>
-        
       </Form>
-      
     </div>
-  )
+  );
 }

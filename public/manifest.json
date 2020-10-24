@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Flo Horses",
+  "name": "Flo Horses, suivez l'évolution de vos chevaux",
   "icons": [
     {
       "src": "favicon.ico",

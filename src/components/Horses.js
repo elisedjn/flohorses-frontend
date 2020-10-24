@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../config";
-import {toFormatedDate} from "../helpers";
+import { toFormatedDate } from "../helpers";
 
 import { Card, CardDeck, Carousel } from "react-bootstrap";
 import "./styles/Horses.css";
@@ -11,7 +11,13 @@ import SearchBox from "./SearchBox";
 export default function Horses(props) {
   const [horses, setHorses] = useState(null);
   const [filteredHorses, setFilteredHorses] = useState(null);
-
+  const [search, setSearch] = useState("");
+  const [activated, setActivated] = useState({
+    breaking: true,
+    pretraining: true,
+    selle: true,
+  });
+  const [present, setPresent] = useState(false);
 
   useEffect(() => {
     if (props.loggedInUser) {
@@ -21,21 +27,49 @@ export default function Horses(props) {
         })
         .then((horsesArray) => {
           setHorses(horsesArray.data);
-          setFilteredHorses(horsesArray.data)
+          setFilteredHorses(horsesArray.data);
         })
         .catch((err) => console.log("in /horses/userID/all", err));
     }
   }, [props.loggedInUser]);
 
-  const handleSearch = (e) => {
-    let search = e.currentTarget.value.toLowerCase();
-    let cloneHorses = horses.filter(horse => {
-      return (
-        horse.name.toLowerCase().includes(search) || (horse.breeder && horse.breeder.toLowerCase().includes(search)) || (horse.owner && horse.owner.toLowerCase().includes(search))
-      )
-    });
-    setFilteredHorses(cloneHorses);
-  }
+  useEffect(() => {
+    if (horses) {
+      let cloneHorses = horses.filter((horse) => {
+        const nameIsSearched = horse.name.toLowerCase().includes(search);
+        const breederIsSearched =
+          horse.breeder && horse.breeder.toLowerCase().includes(search);
+        const ownerIsSearched =
+          horse.owner && horse.owner.toLowerCase().includes(search);
+        const isSearched =
+          nameIsSearched || breederIsSearched || ownerIsSearched;
+
+        let isFiltered = true;
+        if (activated.selle || activated.breaking || activated.pretraining) {
+          const horsePhases = horse.phases.map((phase) => phase.shortName);
+          const isSelleFiltered =
+            activated.selle && horsePhases.includes("selle");
+          const isBreakingFiltered =
+            activated.breaking && horsePhases.includes("breaking");
+          const isPretrainingFiltered =
+            activated.pretraining && horsePhases.includes("pretraining");
+          isFiltered =
+            isSelleFiltered || isBreakingFiltered || isPretrainingFiltered;
+        }
+
+        let isPresent = true;
+        if (present) {
+          isPresent = false;
+          horse.phases.forEach((phase) => {
+            if (phase.active === true) isPresent = true;
+          });
+        }
+
+        return isSearched && isFiltered && isPresent;
+      });
+      setFilteredHorses(cloneHorses);
+    }
+  }, [search, activated, horses, present]);
 
   return (
     <div id="Horses">
@@ -43,7 +77,11 @@ export default function Horses(props) {
         Bienvenue {props.loggedInUser ? <>{props.loggedInUser.username}</> : ""}{" "}
       </div>
       <div className="search-box">
-        <SearchBox onSearch={handleSearch} />
+        <SearchBox
+          onSearch={(e) => setSearch(e.currentTarget.value.toLowerCase())}
+          onFilter={(activated) => setActivated(activated)}
+          onPresent={(isActive) => setPresent(isActive)}
+        />
       </div>
       <Link className="button btn-orange" to="/horses/create">
         Ajouter un cheval
@@ -52,7 +90,7 @@ export default function Horses(props) {
         {filteredHorses ? (
           filteredHorses.map((horse, i) => {
             return (
-                <Card key={"horse" + i} className="horse-card">
+              <Card key={"horse" + i} className="horse-card">
                 <Link to={`/horses/${horse._id}`}>
                   <Carousel
                     controls={false}
@@ -88,10 +126,10 @@ export default function Horses(props) {
                               className="phase-logo"
                               src={
                                 phase.phaseName.includes("Cheval de selle")
-                                  ? "/images/selle.png"
+                                  ? (phase.active ? "/images/selle.png" : "/images/sellebw.png")
                                   : phase.phaseName.includes("Débourrage")
-                                  ? "/images/breaking.png"
-                                  : "/images/pretraining.png"
+                                  ? (phase.active ? "/images/breaking.png" : "/images/breakingbw.png")
+                                  : (phase.active ? "/images/pretraining.png" : "/images/pretrainingbw.png" )
                               }
                               alt={phase.phaseName}
                             />
@@ -99,8 +137,8 @@ export default function Horses(props) {
                         );
                       })}
                   </Card.Footer>
-                  </Link>
-                </Card>
+                </Link>
+              </Card>
             );
           })
         ) : (

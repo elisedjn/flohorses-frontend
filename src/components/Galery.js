@@ -20,7 +20,16 @@ export default function Galery(props) {
     e.preventDefault();
     let uploadData = new FormData();
     uploadData.append("imageUrl", e.currentTarget.img.files[0]);
-    // axios.post("API REQUEST")
+    axios.post(`${API_URL}/upload`, uploadData, { withCredentials: true })
+      .then((response) => {
+        let updatedPictures = JSON.parse(JSON.stringify(pictures));
+        updatedPictures.push(response.data.image);
+        console.log(updatedPictures)
+        axios.patch(`${API_URL}/horses/onehorse/${props.match.params.horseID}/pictures`, updatedPictures, { withCredentials: true })
+          .then((res) => setPictures(updatedPictures))
+          .catch((err) => console.log("update horse images", err));
+      })
+      .catch((err) => console.log("Upload a picture", err));
   };
 
   return !pictures ? (

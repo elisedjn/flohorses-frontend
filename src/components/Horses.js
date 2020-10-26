@@ -34,7 +34,7 @@ export default function Horses(props) {
   }, [props.loggedInUser]);
 
   useEffect(() => {
-    if (horses) {
+    if (horses && filteredHorses) {
       let cloneHorses = horses.filter((horse) => {
         const nameIsSearched = horse.name.toLowerCase().includes(search);
         const breederIsSearched =

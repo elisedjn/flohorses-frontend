@@ -21,7 +21,9 @@ export default function OneHorse(props) {
       .get(`${API_URL}/horses/onehorse/${props.match.params.horseID}`, {
         withCredentials: true,
       })
-      .then((response) => setHorse(response.data))
+      .then((response) => {
+        setHorse(response.data)
+      })
       .catch((err) => console.log("Get one horse", err));
   }, [props.match.params.horseID]);
 

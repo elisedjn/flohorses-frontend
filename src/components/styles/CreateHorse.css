@@ -44,7 +44,7 @@
 }
 
 #CreateHorse .btn-1 img{
-  width: 30px;
+  width: 100%;
 }
 
 #CreateHorse .identity {

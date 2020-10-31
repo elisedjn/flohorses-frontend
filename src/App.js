@@ -15,6 +15,7 @@ import Footer from "./components/Footer";
 import OneHorse from "./components/OneHorse";
 import Galery from "./components/Galery";
 import CreateHorse from './components/CreateHorse';
+import Userinfos from "./components/Userinfos";
 
 function App(props) {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -66,6 +67,40 @@ function App(props) {
       .catch((err) => console.log("LogIn", err));
   };
 
+  const handleEditUser = (e) => {
+    e.preventDefault();
+    const {username, email, password, newPassword} = e.currentTarget;
+    const updatedInfos = {
+      username : username.value,
+      email: email.value,
+      password: password.value,
+      newPassword: newPassword.value
+    }
+    axios.patch(`${API_URL}/user/${loggedInUser._id}`, updatedInfos, {
+      withCredentials: true,
+    }) 
+      .then(() => {
+        let updatedUser = JSON.parse(JSON.stringify(loggedInUser))
+        updatedUser.username = username.value;
+        updatedUser.email = email.value;
+        setLoggedInUser(updatedUser);
+        props.history.push("/horses");
+      })
+      .catch((err)=> console.log(err))
+
+  }
+
+  const handleDeleteUser = () => {
+    axios.delete(`${API_URL}/user/${loggedInUser._id}`, {
+      withCredentials: true,
+    })
+    .then((response)=> {
+      setLoggedInUser(null)
+      props.history.push("/")
+    })
+    .catch((err) => console.log(err))
+  }
+
   const handleLogOut = () => {
     axios.post(`${API_URL}/auth/logout`, {}, { withCredentials: true })
       .then(() => {
@@ -104,6 +139,9 @@ function App(props) {
           }} />
           <Route exact path="/horses/:horseID/pictures" render={(routeProps) => {
             return <Galery loggedInUser = {loggedInUser} {...routeProps} />
+          }} />
+          <Route path="/account" render={(routeProps) => {
+            return <Userinfos loggedInUser = {loggedInUser} onEdit={handleEditUser} onDelete={handleDeleteUser} {...routeProps} />
           }} />
         </Switch>
         <Footer />

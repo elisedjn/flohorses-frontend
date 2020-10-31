@@ -26,6 +26,41 @@
   width: 100%;
 }
 
+#Gallery .add-image {
+  width: 45%;
+}
+
+#Gallery .add-image [type="file"] {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  white-space: nowrap;
+  width: 1px;
+}
+
+#Gallery .add-image [type="file"] + label.btn-1 {
+  background: #5a002c;
+  height: 100%;
+  width: 100%;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bolder;
+  outline: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#Gallery .btn-1 img{
+  width: 100%;
+}
+
 /* Responsive layout - makes a two column-layout instead of four columns */
 @media screen and (max-width: 800px) {
   .column {

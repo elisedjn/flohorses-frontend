@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Tabs, Tab } from "react-bootstrap";
 import axios from "axios";
 import { API_URL } from "../config";
@@ -6,6 +6,8 @@ import { API_URL } from "../config";
 import "./styles/CreateHorse.css";
 
 export default function CreateHorse(props) {
+  const [imageSrc, setImageSrc] = useState("/images/addimage.png");
+
   const handleCreateHorse = (e) => {
     e.preventDefault();
     const {
@@ -17,34 +19,36 @@ export default function CreateHorse(props) {
       owner,
       breeder,
       generalNotes,
-      picture,
     } = e.currentTarget;
+    const newHorse = {
+      name: name.value,
+      birthdate: birthdate.value,
+      sex: sex.value,
+      father: father.value,
+      mother: mother.value,
+      owner: owner.value,
+      breeder: breeder.value,
+      generalNotes: generalNotes.value,
+      pictures: imageSrc,
+    };
+    axios
+      .post(`${API_URL}/horses/${props.loggedInUser._id}/create`, newHorse, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        props.history.push(`/horses/${res.data._id}`);
+      })
+      .catch((err) => console.log("Creating a horse", err));
+  };
+
+  const handleImage = (e) => {
+    setImageSrc("/images/loading.gif")
     let uploadData = new FormData();
-    uploadData.append("imageUrl", picture.files[0]);
+    uploadData.append("imageUrl", e.currentTarget.files[0]);
     axios
       .post(`${API_URL}/upload`, uploadData, { withCredentials: true })
       .then((imagePath) => {
-        const newHorse = {
-          name: name.value,
-          birthdate: birthdate.value,
-          sex: sex.value,
-          father: father.value,
-          mother: mother.value,
-          owner: owner.value,
-          breeder: breeder.value,
-          generalNotes: generalNotes.value,
-          pictures: [imagePath.data.image],
-        };
-        axios
-          .post(
-            `${API_URL}/horses/${props.loggedInUser._id}/create`,
-            newHorse,
-            { withCredentials: true }
-          )
-          .then((res) => {
-            props.history.push(`/horses/${res.data._id}`);
-          })
-          .catch((err) => console.log("Creating a horse", err));
+        setImageSrc(imagePath.data.image);
       })
       .catch((err) => console.log("Uploading picture for new horse", err));
   };
@@ -53,10 +57,16 @@ export default function CreateHorse(props) {
     <form id="CreateHorse" onSubmit={handleCreateHorse}>
       <div className="top-part">
         <div className="add-image">
-          <input type="file" id="picture" name="picture" accept="image/*" />
+          <input
+            onChange={handleImage}
+            type="file"
+            id="picture"
+            name="picture"
+            accept="image/*"
+          />
           <label htmlFor="picture" className="btn-1">
             {" "}
-            <img src="/images/addimage.png" alt="+" /> <p>Ajouter une image</p>
+            <img src={imageSrc} alt="Ajouter" />
           </label>
         </div>
         <div className="identity">

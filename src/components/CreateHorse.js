@@ -3,10 +3,13 @@ import { Tabs, Tab } from "react-bootstrap";
 import axios from "axios";
 import { API_URL } from "../config";
 
+import {Modal, Button} from 'react-bootstrap';
 import "./styles/CreateHorse.css";
 
 export default function CreateHorse(props) {
   const [imageSrc, setImageSrc] = useState("/images/addimage.png");
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("Une erreur s'est produite. Merci de réessayer.")
 
   const handleCreateHorse = (e) => {
     e.preventDefault();
@@ -38,7 +41,12 @@ export default function CreateHorse(props) {
       .then((res) => {
         props.history.push(`/horses/${res.data._id}`);
       })
-      .catch((err) => console.log("Creating a horse", err));
+      .catch((err) => {
+        console.log("Creating a horse", err.response.data);
+        setShowError(true);
+        if(err.response.data.errorMessage.errors.name.kind === "required" && err.response.data.errorMessage.errors.name.path === "name") setErrorMessage("Merci de saisir le nom du cheval.")
+
+      });
   };
 
   const handleImage = (e) => {
@@ -50,10 +58,14 @@ export default function CreateHorse(props) {
       .then((imagePath) => {
         setImageSrc(imagePath.data.image);
       })
-      .catch((err) => console.log("Uploading picture for new horse", err));
+      .catch((err) => {
+        setShowError(true)
+        console.log("Uploading picture for new horse", err)
+      });
   };
 
   return (
+    <>
     <form id="CreateHorse" onSubmit={handleCreateHorse}>
       <div className="top-part">
         <div className="add-image">
@@ -151,5 +163,22 @@ export default function CreateHorse(props) {
         Valider
       </button>
     </form>
+    <Modal
+        show={showError}
+        onHide={() => setShowError(false)}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Oops...</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{errorMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button className="small-button btn-orange" onClick={() => setShowError(false)}>
+            Ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      </>
   );
 }

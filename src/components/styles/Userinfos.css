@@ -1,0 +1,52 @@
+#UserInfos{
+  min-height: 100vh;
+  margin-top: 40px;
+}
+
+#UserInfos h1{
+  font-family: 'Megrim', cursive;
+  padding-top: 15px;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: bolder;
+  color: white;
+}
+
+#UserInfos form{
+  width: 95%;
+  margin: auto;
+  margin-bottom: 30px;
+  padding: 15px 20px;
+  background-color: rgba(227, 220, 213, 0.8);
+}
+
+#UserInfos label{
+  display: block;
+  margin: 0px;
+  margin-top: 20px;
+}
+
+#UserInfos .username{
+  font-size: 1.5rem;
+  text-align: center;
+  display: block;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.4);
+  border: none;
+}
+
+#UserInfos input{
+  border: none;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+#UserInfos .btn-orange{
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+}
+
+#UserInfos .btn-bordeaux{
+  display: block;
+  margin: auto;
+}

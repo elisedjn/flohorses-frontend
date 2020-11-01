@@ -47,7 +47,7 @@ export default function Galery(props) {
   ) : (
     <div id="Gallery">
       <div>
-        <a href={`/horses/${props.match.params.horseID}`}>Back</a>
+        <a href={`/horses/${props.match.params.horseID}`}><img className="back-arrow" src="/images/back.png" alt="Back" /></a>
       </div>
       <div className="images">
         {pictures.map((picture, index) => {

@@ -1,6 +1,11 @@
 #Gallery{
   min-height: 100vh;
-  padding: 70px 20px 0px 20px;
+  padding: 60px 20px 0px 20px;
+}
+
+#Gallery .back-arrow{
+  width: 30px;
+  margin-bottom: 10px;
 }
 
 #Gallery .image-container img{
